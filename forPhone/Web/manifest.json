@@ -1,0 +1,20 @@
+{
+  "name": "Qu1zFr0ntier SmartPhone Version",
+  "short_name": "Qu1zFr0ntier",
+  "description": "縦向きで使えるクイズ学習アプリ",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#fff0f5",
+  "theme_color": "#ff99cc",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

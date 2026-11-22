@@ -1,0 +1,19 @@
+{
+  "name": "quiz-forge-sync-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal MySQL sync API and question management site for QUIZ FORGE",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.3"
+  }
+}

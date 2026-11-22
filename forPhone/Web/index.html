@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#fff0f5" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Qu1zFr0ntier" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <title>Qu1zFr0ntier — SmartPhone Version</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="mobile.css" />
+</head>
+<body class="smartphone-version">
+  <div class="ambient a"></div><div class="ambient b"></div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#home" aria-label="Qu1zFr0ntier ホーム"><span class="brand-mark">Q</span><span>Qu1z<i>Fr0ntier</i></span></a>
+      <nav class="nav" aria-label="メインメニュー">
+        <button class="nav-item active" data-view="home"><span>⌂</span>ホーム</button>
+        <button class="nav-item" data-view="study"><span>◉</span>解く</button>
+        <button class="nav-item" data-view="library"><span>▤</span>問題セット</button>
+        <button class="nav-item" data-view="questions"><span>☷</span>問題一覧</button>
+        <button class="nav-item" data-view="stats"><span>▥</span>統計</button>
+      </nav>
+      <div class="sidebar-bottom"><button id="openSettings" class="ghost-btn full">⚙ 設定</button><button id="openImport" class="ghost-btn full">⇪ CSV を読み込む</button><button id="openQuestion" class="primary-btn full">＋ 問題を追加</button></div>
+    </aside>
+
+    <main>
+      <header class="topbar"><button id="mobileMenu" class="icon-btn mobile-only" aria-label="メニュー">☰</button><div id="crumb" class="crumb">ダッシュボード</div><div class="top-actions"><button id="openSettingsTop" class="icon-btn" aria-label="設定">⚙</button><button id="quickStudy" class="primary-btn compact">▶ 今すぐ練習</button></div></header>
+
+      <section id="home" class="view active">
+        <div class="hero-meter">
+          <p>今日の学習</p>
+          <strong id="todayCount">0</strong>
+          <span>問に回答</span>
+          <div class="meter">
+            <i id="todayMeter">             
+            </i>
+          </div>
+          <small id="todayMessage">最初の1問を始めよう</small>
+        </div>
+        <div class="section-head"><div><p class="eyebrow">YOUR DECKS</p><h2>問題セット</h2></div><button class="text-btn" data-go="library">すべて見る →</button></div><div id="deckOverview" class="deck-grid"></div>
+        <div class="section-head split"><div><p class="eyebrow">AT A GLANCE</p><h2>いまの記憶の状態</h2></div><div class="legend"><span class="dot weak"></span>要復習 <span class="dot strong"></span>定着</div></div><div class="dashboard-grid"><div class="panel level-panel"><div id="levelBars"></div></div><div class="panel"><h3>直近7日間</h3><div id="miniHeatmap" class="mini-heatmap"></div><p id="streakText" class="muted"></p></div></div>
+      </section>
+
+      <section id="study" class="view">
+        <div id="studySetup">
+          <p class="eyebrow">SMARTPHONE PRACTICE</p><h1>問題を解く</h1><p class="lead">縦向きのまま、カードを左右にフリックして正誤を判定できます。</p>
+          <div class="setup-grid"><div class="panel setup-panel"><label>問題セット<select id="studyDeck"></select></label><label>出題数<select id="questionCount"><option value="10">10問</option><option value="20">20問</option><option value="30">30問</option><option value="40">40問</option><option value="50">50問</option><option value="60">60問</option><option value="70">70問</option><option value="80">80問</option><option value="90">90問</option><option value="100">100問</option><option value="endless">エンドレス</option></select></label><label>表示モード<div class="segmented" id="modeToggle"><button data-mode="button">ボタンモード<br><small>タイプライター式</small></button><button class="selected" data-mode="speed">スピードモード<br><small>すぐに問題を表示</small></button></div></label><label id="speedRow" hidden>表示速度 <output id="speedValue">標準</output><input id="typingSpeed" type="range" min="10" max="80" value="38" /></label><button id="startStudy" class="primary-btn large">練習を開始　→</button></div><aside class="practice-note"><span>✦</span><div><b>スワイプ学習</b><p>左へフリックで不正解、右へフリックで正解。答えを見るだけならカードをタップ。</p></div><hr><b>ショートカット</b><p><kbd>Space</kbd> 答え　<kbd>←</kbd> 不正解　<kbd>→</kbd> 正解</p></aside></div>
+        </div>
+        <div id="studyPlayer" hidden>
+          <div class="session-bar"><button id="exitStudy" class="text-btn">← 終了</button><button id="backCard" class="text-btn" disabled>↩ 戻る <kbd>Z</kbd></button><span id="sessionDeck"></span><span id="sessionProgress" class="progress-text"></span><div class="progress-track"><i id="sessionProgressBar"></i></div><button id="favoriteCard" class="icon-btn" aria-label="お気に入り">☆</button></div>
+          <div id="flashcard" class="flashcard"><div class="card-top"><span id="levelBadge" class="level-badge">LEVEL 0</span><span id="modeBadge" class="mode-badge"></span></div><div class="card-content"><p id="cardPrompt" class="question-text" aria-live="polite"></p><div id="answerArea" class="answer-area" hidden><span>ANSWER · タップして検索</span><p id="cardAnswer" tabindex="0" role="button" aria-label="答えを検索"></p><button id="searchAnswer" class="search-answer">⌕ この答えを検索 <kbd>X</kbd></button></div></div><div class="card-bottom"><p id="cardHint">スペースキーまたはボタンで進む</p></div></div>
+          <div class="study-controls"><button id="wrongBtn" class="answer-btn wrong"><span>←</span> 不正解</button><button id="revealBtn" class="reveal-btn">答えを見る</button><button id="rightBtn" class="answer-btn right">正解 <span>→</span></button></div><p class="control-note">カードを左へフリック：不正解　　右へフリック：正解　　タップ：答えを見る</p>
+        </div>
+        <div id="sessionComplete" class="complete-card" hidden><span>✦</span><p class="eyebrow">SESSION COMPLETE</p><h1 id="completeTitle">よくできました。</h1><p id="completeSummary"></p><div class="complete-actions"><button id="againStudy" class="primary-btn">もう一度練習</button><button class="ghost-btn" data-go="stats">統計を見る</button></div></div>
+      </section>
+
+      <section id="library" class="view"><div class="title-row"><div><p class="eyebrow">QUESTION LIBRARY</p><h1>問題セット</h1><p class="lead">問題を閲覧できます。</p></div><div class="title-actions"><button id="newDeck" class="ghost-btn">＋ セット</button><button class="primary-btn" data-action="question">＋ 問題</button></div></div><div id="deckLibrary" class="deck-library"></div><div class="all-questions-teaser"><div><p class="eyebrow">ALL QUESTIONS</p><h2>すべての問題</h2><p>問題一覧ページで検索・絞り込み・ページ移動ができます。</p></div><button class="primary-btn" data-go="questions">問題一覧を開く</button></div></section>
+
+      <section id="questions" class="view"><div class="title-row"><div><p class="eyebrow">QUESTION BROWSER</p><h1>すべての問題</h1><p class="lead">問題文と答えが画面内に収まるように折り返して表示します。</p></div><div class="title-actions"><button class="ghost-btn" data-go="library">問題セットに戻る</button><button class="primary-btn" data-action="question">＋ 問題を追加</button></div></div><div class="question-toolbar"><div class="filter-bar"><input id="questionSearch" type="search" placeholder="問題・答えを検索" /><select id="questionDeckFilter"></select></div><div id="questionViewMode" class="view-mode-toggle"><button class="selected" data-question-mode="list">一覧</button><button data-question-mode="cards">カード</button></div><span id="questionCountLabel" class="question-count"></span></div><div class="panel question-browser"><div id="questionList" class="question-list"></div><div id="questionPagination" class="question-pagination"></div></div></section>
+
+      <section id="stats" class="view"><p class="eyebrow">LEARNING INSIGHTS</p><h1>学習の記録</h1><p id="motivationBanner" class="motivation-banner">今日の一歩が、明日の自信になる。</p><div id="statCards" class="stat-cards"></div><div class="motivation-panel panel"><div><span class="eyebrow">TODAY'S QUEST</span><h2 id="weeklyGoal">今日の目標を始めよう</h2><p id="motivationText"></p></div><div class="quest-ring"><b id="questPercent">0%</b><small>達成</small></div></div><div class="stats-grid"><div class="panel heat-panel"><div class="panel-head"><h3>学習ヒートマップ</h3><span>過去12週間</span></div><div id="heatmap" class="heatmap"></div><div class="heat-label"><span>少ない</span><i></i><i></i><i></i><i></i><span>多い</span></div></div><div class="panel"><div class="panel-head"><h3>デッキごとの達成度</h3><span>平均レベル</span></div><div id="deckStats" class="deck-stats"></div></div></div><div class="panel"><div class="panel-head"><h3>記憶レベルの分布</h3><span>Lv.8 で定着</span></div><div id="levelDistribution" class="distribution"></div></div><div class="panel history-panel"><div class="panel-head"><h3>解いた問題の履歴</h3><span>最新200問</span></div><div id="historyList" class="history-list"></div></div></section>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <dialog id="modal"><form id="modalForm" method="dialog"><button class="modal-close" type="button" value="cancel" aria-label="閉じる">×</button><div id="modalContent"></div></form></dialog>
+  <input id="csvInput" type="file" accept=".csv,text/csv" hidden />
+  <nav class="mobile-bottom-nav" aria-label="スマホ用ナビゲーション"><button data-view="home"><span>⌂</span>ホーム</button><button data-view="study"><span>◉</span>解く</button><button data-view="library"><span>▤</span>セット</button><button data-view="stats"><span>▥</span>統計</button><button id="mobileSettings" type="button"><span>⚙</span>設定</button></nav>
+  <script src="app.js"></script>
+  <script src="sync-client.js"></script>
+  <script src="mobile-features.js"></script>
+  <script src="mobile.js"></script>
+  <script src="mobile-pwa.js"></script>
+</body>
+</html>

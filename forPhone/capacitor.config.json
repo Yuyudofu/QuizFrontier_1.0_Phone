@@ -1,0 +1,9 @@
+{
+  "appId": "com.quizforge.smartphone",
+  "appName": "Qu1zFr0ntier",
+  "webDir": "Web",
+  "bundledWebRuntime": false,
+  "ios": {
+    "contentInset": "automatic"
+  }
+}

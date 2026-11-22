@@ -1,0 +1,46 @@
+name: iOS preflight build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  simulator-build:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: SmartPhone Version
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: SmartPhone Version/package-lock.json
+
+      - name: Install JavaScript dependencies
+        run: npm ci
+
+      - name: Validate JavaScript
+        run: npm run web:check
+
+      - name: Generate and sync iOS project
+        run: npm run ios:prepare
+
+      - name: Force portrait orientation
+        run: |
+          PLIST="ios/App/App/Info.plist"
+          /usr/libexec/PlistBuddy -c "Delete :UISupportedInterfaceOrientations" "$PLIST" || true
+          /usr/libexec/PlistBuddy -c "Add :UISupportedInterfaceOrientations array" "$PLIST"
+          /usr/libexec/PlistBuddy -c "Add :UISupportedInterfaceOrientations:0 string UIInterfaceOrientationPortrait" "$PLIST"
+
+      - name: Build for iOS Simulator (unsigned)
+        run: npm run ios:build:simulator
+
+      - name: Upload generated iOS project
+        uses: actions/upload-artifact@v4
+        with:
+          name: quiz-forge-ios-project
+          path: SmartPhone Version/ios

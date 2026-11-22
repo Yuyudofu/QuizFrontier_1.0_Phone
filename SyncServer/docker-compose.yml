@@ -1,0 +1,18 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: quiz-forge-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: local-root-password
+      MYSQL_DATABASE: quiz_forge
+      MYSQL_USER: quiz_forge
+      MYSQL_PASSWORD: change-this-password
+    ports:
+      - "3306:3306"
+    volumes:
+      - quiz-forge-mysql:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+
+volumes:
+  quiz-forge-mysql:
